@@ -50,14 +50,14 @@ func databaseConnection() {
 
 //Getting all the task route.
 func GetAllTasks(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Context-Type", "application/json")
 	task := getAllTasks()
 	json.NewEncoder(w).Encode(task)
 }
 
 //Creates task route
 func Create(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Context-Type", "application/json")
 	var task models.Todo
 	_ = json.NewDecoder(r.Body).Decode(&task)
 	insertTask(task)
@@ -66,7 +66,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 
 // DeleteTask delete one task route
 func Delete(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Context-Type", "application/json")
 	params := mux.Vars(r)
 	deleteOne(params["id"])
 	json.NewEncoder(w).Encode(params["id"])
@@ -74,7 +74,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 
 // DeleteAllTask delete all tasks route
 func DeleteAll(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Context-Type", "application/json")
 	count := deleteAll()
 	json.NewEncoder(w).Encode(count)
 }
